@@ -39,7 +39,11 @@ textarea{min-height:80px}.check{display:flex;gap:9px;align-items:flex-start;font
 <button class="primary" type="submit">Preview report</button><div id="demoMessage" role="status"></div></form>
 </div></section><footer>tillytag · Helping pets find their way home<br>Prototype only — no reports are sent and no owner is contacted.</footer></main>
 <script>
-const btn=document.getElementById('showForm'),form=document.getElementById('reportForm'),msg=document.getElementById('demoMessage');
-btn.addEventListener('click',()=>{form.classList.toggle('open');btn.textContent=form.classList.contains('open')?'Hide report form':'I’ve found or spotted Tilly';if(form.classList.contains('open'))form.scrollIntoView({behavior:'smooth',block:'start'})});
-form.addEventListener('submit',e=>{e.preventDefault();msg.style.display='block';msg.textContent='Demo preview only — nothing has been sent. Report: '+document.getElementById('kind').value+'. Time: '+document.getElementById('when').value+'. Location consent: '+(document.getElementById('shareLocation').checked?'yes':'no')+'.';});
+
+const btn = document.getElementById('showForm');
+const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSfrUCPkNL8nqQKaUOTG5A22KPA5zUuqnNExzHr0UCfRPPMjaw/viewform?usp=dialog';
+
+btn.addEventListener('click', () => {
+  window.open(formUrl, '_blank', 'noopener');
+});
 </script></body></html>

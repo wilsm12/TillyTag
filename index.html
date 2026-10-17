@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TillyTag prototype</title>
+<style>
+:root{--ink:#24352d;--green:#365b49;--mint:#e4eee5;--cream:#f7f3eb;--orange:#df8c55}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.5 system-ui,sans-serif}
+header{padding:18px 22px;border-bottom:1px solid #e5dfd4;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.3rem;font-weight:850;letter-spacing:-.04em}.logo span{color:var(--orange)}
+.pill{font-size:.75rem;border:1px solid #d6dfd5;border-radius:99px;padding:5px 10px;background:white}
+main{max-width:540px;margin:24px auto;padding:0 16px}.notice,footer{text-align:center;color:#68756d;font-size:.82rem}
+.card{background:white;border:1px solid #e8e1d7;border-radius:24px;overflow:hidden;box-shadow:0 12px 34px #24352d0c}
+.hero{background:var(--mint);padding:24px;text-align:center}.dog{font-size:68px;width:124px;height:124px;border-radius:50%;background:white;margin:0 auto 12px;display:grid;place-items:center;border:5px solid white}
+h1{font-size:2rem;letter-spacing:-.05em;margin:0}.sub{margin:4px 0;color:#4d6658}.content{padding:22px}
+.status{display:inline-block;background:#fff4e8;color:#85522d;border-radius:99px;padding:6px 11px;font-size:.8rem;font-weight:700}
+h2{font-size:1.1rem;margin:18px 0 5px}.desc{margin:0;color:#4e5d53}
+.details{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}.detail{background:#f7f8f5;padding:12px;border-radius:14px}
+.detail small{display:block;color:#68756d;font-size:.76rem}button{font:inherit;font-weight:750;border:0;border-radius:14px;padding:14px 16px;cursor:pointer;width:100%}
+.primary{background:var(--green);color:white}.safe{font-size:.8rem;color:#68756d;text-align:center;margin:14px 4px 0}
+form{display:none;margin-top:18px;border-top:1px solid #e9e5dc;padding-top:16px}form.open{display:block}
+label{display:block;font-size:.88rem;font-weight:700;margin:12px 0 5px}input,textarea,select{width:100%;font:inherit;border:1px solid #d8ddd5;border-radius:11px;padding:11px;background:white;color:var(--ink)}
+textarea{min-height:80px}.check{display:flex;gap:9px;align-items:flex-start;font-size:.85rem;color:#68756d}.check input{width:auto;margin-top:5px}
+#demoMessage{display:none;background:#edf4ed;border-radius:12px;padding:12px;margin-top:12px;font-size:.9rem}footer{padding:18px}
+</style></head><body>
+<header><div class="logo">tilly<span>tag</span></div><span class="pill">Prototype demo</span></header>
+<main><p class="notice">A first look at how a TillyTag scan could work</p>
+<section class="card"><div class="hero"><div class="dog" role="img" aria-label="Dog illustration">🐶</div><h1>Meet Tilly</h1><p class="sub">A friendly face with a family waiting for her</p></div>
+<div class="content"><span class="status">● Please help me get home</span>
+<h2>About Tilly</h2><p class="desc">Tilly is a much-loved, friendly pup. If you’ve found her or spotted her nearby, please let her family know.</p>
+<div class="details"><div class="detail"><small>Pet</small><strong>Dog</strong></div><div class="detail"><small>Temperament</small><strong>Friendly</strong></div><div class="detail"><small>Tag ID</small><strong>TT-DEMO-001</strong></div><div class="detail"><small>Owner details</small><strong>Kept private</strong></div></div>
+<button class="primary" id="showForm">I’ve found or spotted Tilly</button>
+<p class="safe">You choose whether to share a location. This demo does not collect it automatically.</p>
+<form id="reportForm"><h2>Send a sighting report</h2><p class="desc">Share only what you’re comfortable sharing.</p>
+<label for="kind">What happened?</label><select id="kind"><option>I’ve found Tilly and she’s safe</option><option>I spotted Tilly nearby</option><option>I need to share an urgent concern</option></select>
+<label for="where">Approximate location (optional)</label><input id="where" placeholder="e.g. near the park entrance">
+<label for="when">When did you see her?</label><select id="when"><option>Just now</option><option>Within the last hour</option><option>Earlier today</option><option>Another time</option></select>
+<label for="message">Message (optional)</label><textarea id="message" placeholder="What would help Tilly’s family know?"></textarea>
+<label for="contact">Your contact details (optional)</label><input id="contact" placeholder="Phone number or email">
+<label class="check"><input type="checkbox" id="shareLocation"> I’m happy to share my approximate location with Tilly’s owner.</label>
+<button class="primary" type="submit">Preview report</button><div id="demoMessage" role="status"></div></form>
+</div></section><footer>tillytag · Helping pets find their way home<br>Prototype only — no reports are sent and no owner is contacted.</footer></main>
+<script>
+const btn=document.getElementById('showForm'),form=document.getElementById('reportForm'),msg=document.getElementById('demoMessage');
+btn.addEventListener('click',()=>{form.classList.toggle('open');btn.textContent=form.classList.contains('open')?'Hide report form':'I’ve found or spotted Tilly';if(form.classList.contains('open'))form.scrollIntoView({behavior:'smooth',block:'start'})});
+form.addEventListener('submit',e=>{e.preventDefault();msg.style.display='block';msg.textContent='Demo preview only — nothing has been sent. Report: '+document.getElementById('kind').value+'. Time: '+document.getElementById('when').value+'. Location consent: '+(document.getElementById('shareLocation').checked?'yes':'no')+'.';});
+</script></body></html>
